@@ -2,7 +2,7 @@
   "watchInterval": 500,
   "eosApi": "https://eos.greymass.com/v1",
   "eosHistoryApi": ["https://eos.greymass.com/v1"],
-  "apiTimeout": 3000,
+  "apiTimeout": 5000,
   "initialBlock": 1,
   "accounts": {
     "eosio.token": []
