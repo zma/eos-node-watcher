@@ -36,12 +36,17 @@ const mainLoop = async () => {
 
     if (lastChainInfo && lastChainInfo.head_block_num >= nextSyncBlock) {
       const blockInfo = await api.getBlockInfo(nextSyncBlock)
+      logger.info(`blockInfo:`,  JSON.stringify(blockInfo))
       const transactionsIds = actions.filteredTransactionsIds(blockInfo)
+      logger.info(`transactionsIds:`,  JSON.stringify(transactionsIds))
       const transactions = transactionsIds && transactionsIds.length ?
         await api.getBulkTransactions(transactionsIds) : null
 
       if (transactions && transactions.length) {
+        logger.info(`Pushing transactions.`)
         pushTransactions(transactions)
+      } else {
+        logger.info(`No transactions. No push.`)
       }
 
       await saveLastBlock()
