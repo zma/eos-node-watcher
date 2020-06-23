@@ -5,7 +5,7 @@
   "apiTimeout": 3000,
   "initialBlock": 1,
   "accounts": {
-    "eosio.token": []
+    "eosio": []
   },
   "mongodb": {
     "isActive": true,
