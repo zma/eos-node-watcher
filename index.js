@@ -1,6 +1,9 @@
 'use strict'
 
 const logger = require('simple-node-logger').createSimpleLogger()
+
+logger.setLevel("warn")
+
 const nconf = require('nconf')
 const fs = require('fs')
 
@@ -12,7 +15,7 @@ nconf.argv().env('__')
 nconf.defaults({conf: `${__dirname}/config.json`})
 nconf.file(nconf.get('conf'))
 
-const api = require('./lib/eosApi')(nconf.get('eosApi'), nconf.get('eosHistoryApi'), nconf.get('apiTimeout'))
+const api = require('./lib/eosApi')(nconf.get('eosApi'), nconf.get('apiTimeout'))
 const actions = require('./lib/actions')(nconf.get('accounts'))
 
 const watchInterval = nconf.get('watchInterval')
@@ -27,7 +30,7 @@ const mainLoop = async () => {
     pushers = await require('./lib/pushers')(logger, nconf.get('zeromq'), nconf.get('mongodb'), nconf.get('amqp'))
 
   const currentBlock = nextSyncBlock
-  logger.info(`Syncing block ${currentBlock}`)
+  console.log("Syncing block", currentBlock)
 
   try {
     if (lastChainInfo == null || nextSyncBlock <= lastChainInfo.head_block_num) {
